@@ -19,3 +19,20 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 // import socket from "./socket"
+
+$(function() {
+  $(".countdown-clock").each((i, el) => {
+    const $el = $(el)
+    const today = new Date()
+    const due = new Date($el.data("due"))
+    const remaining = due - today
+
+    if (remaining > 0) {
+      $el.FlipClock(remaining / 1000, {
+        clockFace: "DailyCounter",
+        countdown: true,
+        showSeconds: false,
+      })
+    }
+  })
+})
