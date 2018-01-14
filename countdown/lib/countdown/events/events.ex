@@ -101,4 +101,20 @@ defmodule Countdown.Events do
   def change_event(%Event{} = event) do
     Event.changeset(event, %{})
   end
+
+  @doc """
+  Returns the list of future events.
+
+  ## Examples
+
+    iex> list_future_events()
+    [%Event{}, ...]
+  """
+  def list_future_events do
+    query =
+      from e in Countdown.Events.Event,
+        where: e.due >= ^DateTime.utc_now,
+        order_by: [asc: e.due]
+    Repo.all(query)
+  end
 end
